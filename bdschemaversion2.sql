@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS VETDB.ExamenPhysique(
 
 
 CREATE TABLE IF NOT EXISTS VETDB.TraitementPersonalise(
+		numTraitement 		VARCHAR(10)			NOT NULL,
 		numExamen 			VARCHAR(10)			NOT NULL,
 		dateExamen			DATE				NOT NULL,
 		dateDebut			DATE				NOT NULL,
@@ -116,7 +117,6 @@ CREATE TABLE IF NOT EXISTS VETDB.TraitementPersonalise(
 		quantite			INTEGER				NOT NULL,
 		numClinique 		VARCHAR(10)			NOT NULL,
 		numAnimal	 		VARCHAR(10)			NOT NULL,
-		numTraitement 		VARCHAR(10)			NOT NULL,
 		PRIMARY KEY  (numTraitement, numExamen),
 		FOREIGN KEY (numTraitement) REFERENCES VETDB.Traitement(numTraitement) ON DELETE RESTRICT ON UPDATE CASCADE,
 		FOREIGN KEY (numClinique, numAnimal) REFERENCES VETDB.Animal(numClinique,numAnimal) 
