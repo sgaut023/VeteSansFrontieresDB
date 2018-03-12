@@ -33,30 +33,25 @@ INSERT INTO VETDB.Traitement VALUES ('T100', 'Examen', 20.00);
 INSERT INTO VETDB.Traitement VALUES ('T110', 'Traitement contre vomissement', 50.00); 
 INSERT INTO VETDB.Traitement VALUES ('T112', 'Traitement anti douleur', 70.00); 
 INSERT INTO VETDB.Traitement VALUES ('T113', 'Traitement anti verre blanc', 200.00);
+INSERT INTO VETDB.Traitement VALUES ('T114', 'Vaccin contre la grippe pour chien', 400.00);
 
 --Creations des animaux
-INSERT INTO VETDB.Animal VALUES ('C111', 'P1', 'A1', 'Paddy', 'Chat', 'chat batard de couleur gris et blanc', '2015-09-18', '2017-12-01', FALSE) ;
-INSERT INTO VETDB.Animal VALUES ('C111', 'P1', 'A2', 'Pruno', 'Chien', 'chien eau portuguais noir', '2017-01-21', now()); 
-INSERT INTO VETDB.Animal VALUES ('C111', 'P2', 'A3', 'Linux', 'Chat', 'chat batard noir et blanc', '2011-04-09', now()); 
-INSERT INTO VETDB.Animal VALUES ('C112', 'P1', 'A1', 'Noireau', 'Chat', 'chat batard noir', '2017-04-09', now()); 
+INSERT INTO VETDB.Animal VALUES ('C111', 'A1', 'Paddy', 'Chat', 'chat batard de couleur gris et blanc', '2015-09-18', '2017-12-01', FALSE, 'P1') ;
+INSERT INTO VETDB.Animal VALUES ('C111', 'A2', 'Pruno', 'Chien', 'chien eau portuguais noir', '2017-01-21', now(), TRUE, 'P1'); 
+INSERT INTO VETDB.Animal VALUES ('C111', 'A3', 'Linux', 'Chat', 'chat batard noir et blanc', '2011-04-09', now(), TRUE,'P2' ); 
+INSERT INTO VETDB.Animal VALUES ('C112', 'A1', 'Noireau', 'Chat', 'chat batard noir', '2017-04-09', now(),TRUE, 'P1'); 
 
 --Creation des examensphysiques
-INSERT INTO VETDB.ExamenPhysique VALUES ('EX1', '2018-03-10', '04:00:00','chat ne cesse de vomir', 'Jean','Tremblay', 'C111', 'A1', 'T100'); 
-INSERT INTO VETDB.ExamenPhysique VALUES ('EX2', '2018-03-11', '16:00:00','chien blessure a la pate gauche', 'Jean','Tremblay', 'C111', 'A2', 'T100'); 
-INSERT INTO VETDB.ExamenPhysique VALUES ('EX3', '2018-04-10', '08:30:00','verre blanc dans les excrements du chat', 'Jean','Tremblay', 'C111', 'A3', 'T100'); 
-
+INSERT INTO VETDB.Examen VALUES ('EX1', '2018-03-10', '04:00:00','chat ne cesse de vomir', 'C111', 'A1', 'E4'); 
+INSERT INTO VETDB.Examen VALUES ('EX2', '2018-03-11', '16:00:00','chien blessure a la pate gauche', 'C111', 'A2', 'E4' ); 
+INSERT INTO VETDB.Examen VALUES ('EX3', '2018-04-10', '08:30:00','verre blanc dans les excrements du chat', 'C111', 'A3', 'E4'); 
+INSERT INTO VETDB.Examen VALUES ('EX4', '2018-04-12', '10:30:00','vaccin pour chien contre la grippe', 'C111', 'A2', 'E4');
 
 --Creation des traitements personalises
 INSERT INTO VETDB.TraitementPersonalise VALUES ('T110','EX1', '2018-03-10', '2018-03-17', 2, 'C111', 'A1');
 INSERT INTO VETDB.TraitementPersonalise VALUES ('T112','EX2', '2018-03-11', '2018-03-25', 2, 'C111', 'A2');       
 INSERT INTO VETDB.TraitementPersonalise VALUES ('T113','EX3', '2018-04-13', '2018-04-17', 2, 'C111', 'A3');
-
-
-
-
-
-
-
+INSERT INTO VETDB.TraitementPersonalise VALUES ('T114','EX4', '2018-04-13', '2018-04-17', 1, 'C111', 'A2');
 
 
 

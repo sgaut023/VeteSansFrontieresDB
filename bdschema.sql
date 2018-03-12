@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS VETDB.Animal(
 		numProprietaire	VARCHAR(10)			NOT NULL,
 		PRIMARY KEY (numClinique, numAnimal),
 		FOREIGN KEY (numClinique, numProprietaire) REFERENCES VETDB.Proprietaire(numClinique, numProprietaire) 
-		ON DELETE RESTRICT ON UPDATE CASCADE.
+		ON DELETE RESTRICT ON UPDATE CASCADE,
 		FOREIGN KEY (numClinique) REFERENCES VETDB.Clinique(numClinique) 
 		ON DELETE RESTRICT ON UPDATE CASCADE);
 
@@ -115,9 +115,13 @@ CREATE TABLE IF NOT EXISTS VETDB.TraitementPersonalise(
 		dateDebut			DATE				NOT NULL,
 		dateFin	 			DATE				NOT NULL,
 		quantite			INTEGER				NOT NULL,
+		numClinique 		VARCHAR(10)			NOT NULL,
+		numAnimal	 		VARCHAR(10)			NOT NULL,
 		PRIMARY KEY  (numTraitement, numExamen),
 		FOREIGN KEY (numTraitement) REFERENCES VETDB.Traitement(numTraitement) ON DELETE RESTRICT ON UPDATE CASCADE,
-		FOREIGN KEY (numExamen) REFERENCES VETDB.Examen(numExamen) ON DELETE CASCADE ON UPDATE CASCADE);
+		FOREIGN KEY (numExamen) REFERENCES VETDB.Examen(numExamen) ON DELETE CASCADE ON UPDATE CASCADE,
+		FOREIGN KEY (numClinique, numAnimal) REFERENCES VETDB.Animal(numClinique,numAnimal) 
+		ON DELETE RESTRICT ON UPDATE CASCADE);
 		
 
 ---- Fonction checkClinique() qui implante le comportement désiré
