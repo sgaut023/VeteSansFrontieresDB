@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS VETDB.Proprietaire(
 		rue				VARCHAR(50)		NOT NULL,
 		ville			VARCHAR(50)		NOT NULL,
 		province		VARCHAR(50)		NOT NULL,
-		codePostal		ZIPCODE,
+		codePostal		ZIPCODE    		NOT NULL,
 		numTel			PHONENUMBER		NOT NULL, 
 		PRIMARY KEY (numClinique, numProprietaire),
 		FOREIGN KEY(numClinique) REFERENCES VETDB.Clinique(numClinique) ON DELETE RESTRICT ON UPDATE CASCADE);
@@ -84,6 +84,8 @@ CREATE TABLE IF NOT EXISTS VETDB.Animal(
 		estVivant		BOOLEAN				NOT NULL DEFAULT TRUE,
 		PRIMARY KEY (numClinique, numAnimal),
 		FOREIGN KEY (numClinique, numProprietaire) REFERENCES VETDB.Proprietaire(numClinique, numProprietaire) 
+		ON DELETE RESTRICT ON UPDATE CASCADE.
+		FOREIGN KEY (numClinique) REFERENCES VETDB.Clinique(numClinique) 
 		ON DELETE RESTRICT ON UPDATE CASCADE);
 
 CREATE TABLE IF NOT EXISTS VETDB.Traitement(
@@ -93,36 +95,30 @@ CREATE TABLE IF NOT EXISTS VETDB.Traitement(
 		PRIMARY KEY  (numTraitement));
 
 
-CREATE TABLE IF NOT EXISTS VETDB.ExamenPhysique(
+CREATE TABLE IF NOT EXISTS VETDB.Examen(
 		numExamen 			VARCHAR(10)			NOT NULL,
 		dateExamen			DATE				NOT NULL,
 		heure	 			TIME				NOT NULL,
 		description 		VARCHAR(60)			NOT NULL,
-		prenomVeterinaire	VARCHAR(50)			NOT NULL,
-		nomVeterinaire		VARCHAR(50)			NOT NULL,
 		numClinique 		VARCHAR(10)			NOT NULL,
 		numAnimal			VARCHAR(10)			NOT NULL,
-		numTraitement 		VARCHAR(10)			NOT NULL,
-		PRIMARY KEY  (numTraitement, numExamen),
+		numVet				VARCHAR(10)			NOT NULL,
+		PRIMARY KEY  (numExamen),
 		FOREIGN KEY (numClinique, numAnimal) REFERENCES VETDB.Animal(numClinique, numAnimal) 
-		ON DELETE RESTRICT ON UPDATE CASCADE);
+		ON DELETE RESTRICT ON UPDATE CASCADE,
+		FOREIGN KEY (numVet) REFERENCES VETDB.Employe(numEmp ) ON DELETE RESTRICT ON UPDATE CASCADE);
 
 
 CREATE TABLE IF NOT EXISTS VETDB.TraitementPersonalise(
 		numTraitement 		VARCHAR(10)			NOT NULL,
 		numExamen 			VARCHAR(10)			NOT NULL,
-		dateExamen			DATE				NOT NULL,
 		dateDebut			DATE				NOT NULL,
 		dateFin	 			DATE				NOT NULL,
 		quantite			INTEGER				NOT NULL,
-		numClinique 		VARCHAR(10)			NOT NULL,
-		numAnimal	 		VARCHAR(10)			NOT NULL,
 		PRIMARY KEY  (numTraitement, numExamen),
 		FOREIGN KEY (numTraitement) REFERENCES VETDB.Traitement(numTraitement) ON DELETE RESTRICT ON UPDATE CASCADE,
-		FOREIGN KEY (numClinique, numAnimal) REFERENCES VETDB.Animal(numClinique,numAnimal) 
-		ON DELETE RESTRICT ON UPDATE CASCADE);
+		FOREIGN KEY (numExamen) REFERENCES VETDB.Examen(numExamen) ON DELETE CASCADE ON UPDATE CASCADE);
 		
-
 
 ---- Fonction checkClinique() qui implante le comportement désiré
 ---- On veut que le gestionnaire soit un employe avec la fonction gestionnaire
@@ -146,4 +142,26 @@ DROP TRIGGER IF EXISTS checkCliniqueTrigger on VETDB.Clinique;
 CREATE TRIGGER checkCliniqueTrigger
 BEFORE INSERT OR UPDATE ON VETDB.Clinique
 FOR EACH ROW EXECUTE PROCEDURE checkClinique();
+
+---- Fonction checkClinique() qui implante le comportement désiré
+---- On veut que le gestionnaire soit un employe avec la fonction gestionnaire
+CREATE OR REPLACE FUNCTION checkExamen() RETURNS TRIGGER AS $checkExamenTrigger$
+DECLARE
+	position VARCHAR;
+BEGIN
+		IF (TG_OP = 'UPDATE' OR TG_OP = 'INSERT') THEN
+			Select fonction into position FROM VETDB.Employe WHERE numEmp=new.numVet;
+    		IF(position!='Veterinaire') THEN
+    			raise exception 'ERREUR: La personne qui realise l''examen doit etre un veterinaire.';
+    		END IF;
+        END IF;
+        RETURN NEW;
+END;
+$checkExamenTrigger$ LANGUAGE plpgsql;
+
+--- Trigger qui se déclenche avant d'insérer des données
+
+
+
+
 
