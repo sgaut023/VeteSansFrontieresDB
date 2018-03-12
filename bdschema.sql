@@ -74,7 +74,6 @@ CREATE TABLE IF NOT EXISTS VETDB.Proprietaire(
 
 CREATE TABLE IF NOT EXISTS VETDB.Animal(
 		numClinique 	VARCHAR(10)			NOT NULL,
-		numProprietaire	VARCHAR(10)			NOT NULL,
 		numAnimal	 	VARCHAR(10)			NOT NULL,
 		nom 			VARCHAR(30)			NOT NULL,
 		type			VARCHAR(30)			NOT NULL,
@@ -82,6 +81,7 @@ CREATE TABLE IF NOT EXISTS VETDB.Animal(
 		dateNaissance	DATE,
 		dateInscription	DATE				NOT NULL,
 		estVivant		BOOLEAN				NOT NULL DEFAULT TRUE,
+		numProprietaire	VARCHAR(10)			NOT NULL,
 		PRIMARY KEY (numClinique, numAnimal),
 		FOREIGN KEY (numClinique, numProprietaire) REFERENCES VETDB.Proprietaire(numClinique, numProprietaire) 
 		ON DELETE RESTRICT ON UPDATE CASCADE.
@@ -160,7 +160,11 @@ END;
 $checkExamenTrigger$ LANGUAGE plpgsql;
 
 --- Trigger qui se déclenche avant d'insérer des données
+DROP TRIGGER IF EXISTS checkExamenTrigger on VETDB.Examen;
 
+CREATE TRIGGER checkCliniqueTrigger
+BEFORE INSERT OR UPDATE ON VETDB.Examen
+FOR EACH ROW EXECUTE PROCEDURE checkExamen();
 
 
 
