@@ -50,18 +50,18 @@ ORDER BY numClinique;
 
 --8. Lister le coût minimum, maximum et moyen des traitements
 SELECT MIN(cout) AS coutMinimum, MAX(cout) AS coutMaximun, AVG(cout) AS moyenneTraitement
-FROM VETDB.TRAITEMENT
+FROM VETDB.TRAITEMENT;
 
 --9. Quels sont les noms des employés de plus de 50 ans ordonnés par nom ? 
 Select nomFamille, prenom
 FROM VETDB.Employe
-WHERE (dateNaissance<(current_date-interval '50 year'))
-ORDER BY nomFamille
+WHERE ((CAST (GetDate() AS INTEGER)-(CAST(dateNaissance AS INTEGER))/365.25 >=50)
+ORDER BY nomFamille;
 
 --10. Quels sont les propriétaires dont le nom contient « blay » ? 
 Select *
 FROM VETDB.Proprietaire
-WHERE nomFamille LIKE '%blay%'
+WHERE nomFamille LIKE '%blay%';
 
 --11. Supprimez le vétérinaire « Jean Tremblay »
 DELETE FROM VETDB.Employe
@@ -74,16 +74,18 @@ Where type='Chien')
 INTERSECT
 (Select p.*
 FROM VETDB.Proprietaire p NATURAL JOIN Animal a
-Where type='Chat')
+Where type='Chat');
 
 --13. Lister les détails des propriétaires qui ont un chat ou un chien 
 (Select p.*
 FROM VETDB.Proprietaire p NATURAL JOIN Animal a
-Where type='Chien')
+Where a.type='Chien')
 UNION
 (Select p.*
 FROM VETDB.Proprietaire p NATURAL JOIN Animal a
-Where type='Chat')
+Where a.type='Chat');
+       
+       
 
 --14. Lister les détails des propriétaires qui ont un chat mais pas de chien vacciné contre la grippe
 --(la condition vacciné contre la grippe ne s’applique qu’au chien) 
@@ -96,12 +98,12 @@ EXCEPT
 FROM VETDB.Proprietaire p, Animal a, TraitementPersonalise t
 Where type='Chien' AND p.numProprietaire =  a.numProprietaire
 AND p.numClinique = a.numClinique AND t.numAnimal=a.numAnimal AND
-t.numClinique=a.NumClinique and numTraitement='T114')
+t.numClinique=a.NumClinique and numTraitement='T114');
 
 -- 15. Lister tous les animaux d’une clinique donnée avec leurs traitements s’ils existent. Dans le cas
 --contraire, affichez null. 
 Select *
-FROM Animal a NATURAL LEFT OUTER JOIN TraitementPersonalise t
-WHERE numClinique='C111'
+FROM Animal a FULL OUTER JOIN TraitementPersonalise t ON a.numAnimal = t.numAnimal
+WHERE numClinique='C111';
 
 
