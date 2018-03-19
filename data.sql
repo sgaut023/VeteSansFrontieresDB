@@ -15,6 +15,7 @@ INSERT INTO VETDB.Employe VALUES ('E3', '156 456 606','Madeleine', 'Bertrier', '
 INSERT INTO VETDB.Employe VALUES ('E4', '344 999 797','Jean', 'Tremblay', ' 1111 boulevard des Tartes', ' Gatineau', 'Quebec','T5F 1H6', '403-444-8790', '1978-09-19', 'F','Veterinaire','110055.55', 'C111'); 
 INSERT INTO VETDB.Employe VALUES ('E5', '966 456 666','Ginette', 'Paul','1234 boulevard Maloney','Gatineau', 'Quebec','K9J 8I9', '819-671-6833', '1999-08-05', 'M','Secretaire','23000.66','C111');    
 INSERT INTO VETDB.Employe VALUES ('E6', '344 555 777','Jasmin', 'Green', '34 rue des Riches', 'Cantley', 'Quebec','G6U 7Y8', '403-444-8790', '1967-04-17', 'M','Infirmiere','54300.99', 'C111'); 
+INSERT INTO VETDB.Employe VALUES ('E7', '000 000 001','Georges', 'Laraque', '69 rue des Pauvres', 'Westmount', 'Quebec','E2Z F2U', '819-666-8790', '1976-12-07', 'M','Veterinaire','100000.69', 'C111'); 
 
 
 --Assignation des gestionnaires
@@ -26,7 +27,7 @@ UPDATE VETDB.Clinique SET gestionnaire='E3'WHERE numClinique='C113';
 INSERT INTO VETDB.Proprietaire VALUES ('C111', 'P1', 'Isabelle', 'Tremblay', '542 rue Montee-Paiment', 'Gatineau', 'Quebec', 'J8R 0G8', '819-234-0999') ;
 INSERT INTO VETDB.Proprietaire VALUES ('C111', 'P2', 'Sylvain', 'Gauthier', '27 rue Lippizans', 'Gatineau', 'Quebec', 'J8U 0B4', '613-345-9995'); 
 INSERT INTO VETDB.Proprietaire VALUES ('C111', 'P3', 'Penelope', 'BlayChou', '96 rue Levens', 'Cantley', 'Quebec', 'J8R 1G7', '514-234-0009');
-INSERT INTO VETDB.Proprietaire VALUES ('C112', 'P1', 'Jacob', 'Hebert', '24 rue Levens', 'Cantley', 'Quebec', 'J8R 1G7', '514-234-0008');
+INSERT INTO VETDB.Proprietaire VALUES ('C112', 'P4', 'Jacob', 'Hebert', '24 rue Levens', 'Cantley', 'Quebec', 'J8R 1G7', '514-234-0008');
 
 --Creation des traitements
 INSERT INTO VETDB.Traitement VALUES ('T100', 'Examen', 20.00); 
@@ -39,7 +40,9 @@ INSERT INTO VETDB.Traitement VALUES ('T114', 'Vaccin contre la grippe pour chien
 INSERT INTO VETDB.Animal VALUES ('C111', 'A1', 'Paddy', 'Chat', 'chat batard de couleur gris et blanc', '2015-09-18', '2017-12-01', FALSE, 'P1') ;
 INSERT INTO VETDB.Animal VALUES ('C111', 'A2', 'Pruno', 'Chien', 'chien eau portuguais noir', '2017-01-21', now(), TRUE, 'P1'); 
 INSERT INTO VETDB.Animal VALUES ('C111', 'A3', 'Linux', 'Chat', 'chat batard noir et blanc', '2011-04-09', now(), TRUE,'P2' ); 
-INSERT INTO VETDB.Animal VALUES ('C112', 'A1', 'Noireau', 'Chat', 'chat batard noir', '2017-04-09', now(),TRUE, 'P1'); 
+INSERT INTO VETDB.Animal VALUES ('C112', 'A4', 'Noireau', 'Chat', 'chat batard noir', '2017-04-09', now(),TRUE, 'P1');
+INSERT INTO VETDB.Animal VALUES ('C111', 'A5', 'Wankanda', 'Tortue', 'tortue verte', '2000-05-13', now(),TRUE, 'P4'); 
+
 
 --Creation des examensphysiques
 INSERT INTO VETDB.Examen VALUES ('EX1', '2018-03-10', '04:00:00','chat ne cesse de vomir', 'C111', 'A1', 'E4'); 
