@@ -40,7 +40,7 @@ INSERT INTO VETDB.Traitement VALUES ('T114', 'Vaccin contre la grippe pour chien
 INSERT INTO VETDB.Animal VALUES ('C111', 'A1', 'Paddy', 'Chat', 'chat batard de couleur gris et blanc', '2015-09-18', '2017-12-01', FALSE, 'P1') ;
 INSERT INTO VETDB.Animal VALUES ('C111', 'A2', 'Pruno', 'Chien', 'chien eau portuguais noir', '2017-01-21', now(), TRUE, 'P1'); 
 INSERT INTO VETDB.Animal VALUES ('C111', 'A3', 'Linux', 'Chat', 'chat batard noir et blanc', '2011-04-09', now(), TRUE,'P2' ); 
-INSERT INTO VETDB.Animal VALUES ('C112', 'A4', 'Noireau', 'Chat', 'chat batard noir', '2017-04-09', now(),TRUE, 'P1');
+INSERT INTO VETDB.Animal VALUES ('C112', 'A1', 'Noireau', 'Chat', 'chat batard noir', '2017-04-09', now(),TRUE, 'P1');
 INSERT INTO VETDB.Animal VALUES ('C111', 'A5', 'Wankanda', 'Tortue', 'tortue verte', '2000-05-13', now(),TRUE, 'P4'); 
 
 
